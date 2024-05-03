@@ -24,6 +24,7 @@ kind: Gateway
 apiVersion: gateway.networking.k8s.io/v1beta1
 metadata:
   name: calibre-external-http-gateway
+  namespace: calibre
 spec:
   gatewayClassName: gke-l7-regional-external-managed
   listeners:
@@ -37,6 +38,7 @@ apiVersion: gateway.networking.k8s.io/v1
 kind: HTTPRoute
 metadata:
   name: calibre-httproute
+  namespace: calibre
 spec:
   parentRefs:
   - name: calibre-external-http-gateway

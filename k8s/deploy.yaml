@@ -1,11 +1,3 @@
-# Deployment of the latest version
-apiVersion: v1
-kind: Namespace
-metadata:
-  name: calibre
-
----
-
 apiVersion: apps/v1
 kind: Deployment
 metadata:
