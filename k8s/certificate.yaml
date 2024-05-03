@@ -1,0 +1,10 @@
+apiVersion: networking.gke.io/v1
+kind: ManagedCertificate
+metadata:
+  labels:
+    app: calibre 
+  namespace: calibre
+  name: managed-certificate-calibre
+spec:
+  domains:
+    - calibre.gule-gulzar.com 
