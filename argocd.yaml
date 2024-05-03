@@ -1,0 +1,22 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: calibre 
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: https://github.com/ProjectCalibre/infrastructure
+    targetRevision: HEAD
+    path: k8s
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: calibre 
+
+  syncPolicy:
+    syncOptions:
+    - CreateNamespace=true
+
+    automated: 
+      selfHeal: true
+      prune: true

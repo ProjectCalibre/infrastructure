@@ -1,0 +1,31 @@
+# Deployment of the latest version
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: calibre
+
+---
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: calibre 
+  name: calibre-deployment
+  namespace: calibre 
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: calibre 
+  template:
+    metadata:
+      labels:
+        app: calibre 
+    spec:
+      containers:
+      - image:  ghcr.io/projectcalibre/backend:0.0.2
+        name: calibre-container 
+        envFrom:
+        - secretRef:
+            name: backend-secrets
