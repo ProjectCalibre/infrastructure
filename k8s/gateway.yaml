@@ -1,54 +1,32 @@
-# apiVersion: networking.k8s.io/v1
-# kind: Ingress
+# apiVersion: gateway.networking.k8s.io/v1beta1
+# kind: Gateway
 # metadata:
-#   labels:
-#     app: calibre
+#   name: calibre-external-http-gateway
 #   namespace: calibre
-#   name: calibre-ingress
-#   annotations:
-#     ingress.kubernetes.io/rewrite-target: /
-#     kubernetes.io/ingress.global-static-ip-name: "static-ip-calibre"
-#     networking.gke.io/managed-certificates: managed-certificate-calibre
-#     networking.gke.io/v1beta1.FrontendConfig: redirect-http
 # spec:
-#   defaultBackend:
-#     service:
-#       name: calibre-service
-#       port:
-#         number: 3000
-#   rules:
-#   - host: calibre.gule-gulzar.com
-    
-
-kind: Gateway
-apiVersion: gateway.networking.k8s.io/v1beta1
-metadata:
-  name: calibre-external-http-gateway
-  namespace: calibre
-spec:
-  gatewayClassName: gke-l7-regional-external-managed
-  listeners:
-    - name: http
-      protocol: HTTP
-      port: 80
+#   gatewayClassName: gke-l7-regional-external-managed
+#   listeners:
+#     - name: http
+#       protocol: HTTP
+#       port: 80
   
---- 
+# --- 
 
-apiVersion: gateway.networking.k8s.io/v1
-kind: HTTPRoute
-metadata:
-  name: calibre-httproute
-  namespace: calibre
-spec:
-  parentRefs:
-  - name: calibre-external-http-gateway
-  hostnames:
-  - "calibre.gule-gulzar.com"
-  rules:
-  - matches:
-    - path:
-        type: PathPrefix
-        value: /
-    backendRefs:
-    - name: calibre-service 
-      port: 3000
+# apiVersion: gateway.networking.k8s.io/v1
+# kind: HTTPRoute
+# metadata:
+#   name: calibre-httproute
+#   namespace: calibre
+# spec:
+#   parentRefs:
+#   - name: calibre-external-http-gateway
+#   hostnames:
+#   - "calibre.gule-gulzar.com"
+#   rules:
+#   - matches:
+#     - path:
+#         type: PathPrefix
+#         value: /
+#     backendRefs:
+#     - name: calibre-service 
+#       port: 3000
